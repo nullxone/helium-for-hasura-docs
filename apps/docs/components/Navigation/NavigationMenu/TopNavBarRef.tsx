@@ -63,12 +63,15 @@ const TopNavBarRef: FC = () => {
             <a className=" flex items-center gap-2">
               <Image
                 className="cursor-pointer"
-                src={isDarkMode ? '/docs/supabase-dark.svg' : '/docs/supabase-light.svg'}
-                width={96}
-                height={24}
-                alt="Supabase Logo"
+                src={
+                  isDarkMode
+                    ? '/docs/helium-for-hasura-dark.svg'
+                    : '/docs/helium-for-hasura-light.svg'
+                }
+                width={210}
+                height={50}
+                alt="Helium for Hasura Logo"
               />
-              <span className="font-mono text-sm font-medium text-brand-900">DOCS</span>
             </a>
           </Link>
           {/* {router.asPath.includes('/reference/') && <RefSwitcher />} */}

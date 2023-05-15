@@ -31,7 +31,9 @@ const HomeLayout: FC<Props> = (props: Props) => {
   return (
     <>
       <Head>
-        <title>{asPath === '/' ? 'Supabase Docs' : `${props.meta?.title} | Supabase Docs`}</title>
+        <title>
+          {asPath === '/' ? 'Helium for Hasura Docs' : `${props.meta?.title} | Supabase Docs`}
+        </title>
         <meta name="description" content={props.meta?.description} />
         <meta property="og:image" content={`https://supabase.com/docs/img/supabase-og-image.png`} />
         <meta

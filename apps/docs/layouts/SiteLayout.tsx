@@ -14,6 +14,10 @@ const levelsData = {
     icon: '/docs/img/icons/menu/home',
     name: 'Home',
   },
+  guides: {
+    icon: '/docs/img/icons/menu/storage',
+    name: 'Guides',
+  },
   gettingstarted: {
     icon: '/docs/img/icons/menu/getting-started',
     name: 'Getting Started',
@@ -218,12 +222,13 @@ const HeaderLogo = memo(function HeaderLogo() {
       <a className="px-10 flex items-center gap-2">
         <Image
           className="cursor-pointer"
-          src={isDarkMode ? '/docs/supabase-dark.svg' : '/docs/supabase-light.svg'}
-          width={96}
-          height={24}
-          alt="Supabase Logo"
+          src={
+            isDarkMode ? '/docs/helium-for-hasura-dark.svg' : '/docs/helium-for-hasura-light.svg'
+          }
+          width={250}
+          height={60}
+          alt="Helium for Hasura Logo"
         />
-        <span className="font-mono text-sm font-medium text-brand-900">DOCS</span>
       </a>
     </Link>
   )

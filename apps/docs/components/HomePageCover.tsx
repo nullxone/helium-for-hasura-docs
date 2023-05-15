@@ -26,7 +26,7 @@ const HomePageCover = (props) => {
             <h3 className="text-2xl m-0">Getting Started</h3>
           </div>
           <p className="text-scale-1100 text-sm">
-            Discover how to set up a database to an app making queries in just a few minutes.
+            TODOHE Discover how to set up a database to an app making queries in just a few minutes.
           </p>
         </div>
         <div className="flex flex-wrap md:grid md:grid-cols-4 gap-2 sm:gap-3">
@@ -113,8 +113,7 @@ const HomePageCover = (props) => {
           <div className="flex flex-col">
             <h1 className="m-0 mb-3 text-2xl sm:text-3xl">{props.meta?.title}</h1>
             <p className="m-0 text-scale-1100">
-              Learn how to get up and running with Supabase through tutorials, APIs and platform
-              resources.
+              Model first development to rapidly build, iterate on, and deploy graphql APIs.
             </p>
           </div>
         </div>

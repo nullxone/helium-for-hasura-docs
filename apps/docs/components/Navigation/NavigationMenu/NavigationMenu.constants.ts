@@ -5,28 +5,55 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
     {
       label: 'Home',
       icon: 'home',
-      href: '/',
+      href: '/hasura',
       level: 'home',
     },
     {
       label: 'Getting Started',
       icon: 'getting-started',
-      href: '/guides/getting-started',
+      href: '/hasura/guides/getting-started',
       level: 'gettingstarted',
+    },
+    {
+      label: 'Guides',
+      icon: 'storage',
+      href: '/hasura/guides',
+      level: 'storage',
     },
   ],
   [
     {
-      label: 'Database',
+      label: 'Application',
+    },
+    {
+      label: 'Queries',
+      icon: 'integrations',
+      hasLightIcon: true,
+      href: '/hasura/guides/queries',
+      level: 'integrations',
+    },
+    {
+      label: 'Modelling',
       icon: 'database',
-      href: '/guides/database',
+      href: '/hasura/guides/modelling',
       level: 'database',
     },
     {
-      label: 'Serverless APIs',
+      label: 'Data Mesh',
       icon: 'serverless-apis',
       href: '/guides/api',
       level: 'api',
+    },
+  ],
+  [
+    {
+      label: 'Administration',
+    },
+    {
+      label: 'Configuration',
+      icon: 'self-hosting',
+      href: '/guides/self-hosting',
+      level: 'self_hosting',
     },
     {
       label: 'Auth',
@@ -35,30 +62,27 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
       level: 'auth',
     },
     {
-      label: 'Edge Functions',
-      icon: 'edge-functions',
-      href: '/guides/functions',
-      level: 'functions',
-    },
-    {
-      label: 'Realtime',
-      icon: 'realtime',
-      href: '/guides/realtime',
-      level: 'realtime',
-    },
-    {
-      label: 'Storage',
-      icon: 'storage',
-      href: '/guides/storage',
-      level: 'storage',
+      label: 'Deployment',
+      icon: 'platform',
+      href: '/guides/platform',
+      level: 'platform',
     },
   ],
   [
     {
-      label: 'Platform',
-      icon: 'platform',
-      href: '/guides/platform',
-      level: 'platform',
+      label: 'Reference',
+    },
+    {
+      label: 'Helium DSL',
+      icon: 'reference-api',
+      href: '/reference/api/introduction',
+      level: 'reference_javascript',
+    },
+    {
+      label: 'Helium CLI',
+      icon: 'reference-cli',
+      href: '/guides/cli',
+      level: 'reference_javascript',
     },
     {
       label: 'Resources',
@@ -66,81 +90,23 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
       href: '/guides/resources',
       level: 'resources',
     },
-    {
-      label: 'Self-Hosting',
-      icon: 'self-hosting',
-      href: '/guides/self-hosting',
-      level: 'self_hosting',
-    },
-    {
-      label: 'Integrations',
-      icon: 'integrations',
-      hasLightIcon: true,
-      href: '/guides/integrations',
-      level: 'integrations',
-    },
   ],
   [
     {
-      label: 'Client Library Reference',
+      label: 'Links',
     },
     {
-      label: 'JavaScript',
-      icon: 'reference-javascript',
-      href: '/reference/javascript/introduction',
-      level: 'reference_javascript',
+      label: 'Community',
+      icon: 'edge-functions',
+      href: '/guides/functions',
+      level: 'functions',
     },
     {
-      label: 'Flutter',
-      icon: 'reference-dart',
-      href: '/reference/dart/introduction',
-      level: 'reference_dart',
+      label: 'Hasura Docs',
+      icon: 'realtime',
+      href: '/guides/realtime',
+      level: 'realtime',
     },
-    {
-      label: 'Python',
-      icon: 'reference-python',
-      href: '/reference/python/introduction',
-      level: 'reference_python',
-      community: true,
-    },
-    {
-      label: 'C#',
-      icon: 'reference-csharp',
-      href: '/reference/csharp/introduction',
-      level: 'reference_csharp',
-      community: true,
-    },
-    {
-      label: 'Swift',
-      icon: 'reference-swift',
-      href: '/reference/swift/introduction',
-      level: 'reference_swift',
-      community: true,
-    },
-    {
-      label: 'Kotlin',
-      icon: 'reference-kotlin',
-      href: '/reference/kotlin/introduction',
-      level: 'reference_kotlin',
-      community: true,
-    },
-    {
-      label: 'Tools reference',
-    },
-    {
-      label: 'Management API',
-      icon: 'reference-api',
-      href: '/reference/api/introduction',
-      level: 'reference_javascript',
-    },
-    {
-      label: 'Supabase CLI',
-      icon: 'reference-cli',
-      href: '/guides/cli',
-      level: 'reference_javascript',
-    },
-  ],
-  [
     {
       label: 'Status',
       icon: 'status',
@@ -1414,3 +1380,19 @@ export const references = [
     ],
   },
 ]
+
+export const guides = {
+  icon: 'storage',
+  title: 'Guides',
+  url: '/hasura/guides',
+  items: [
+    {
+      name: 'Getting Started',
+      url: '/hasura/guides/getting-started',
+    },
+    {
+      name: 'How Hasura Works',
+      url: '/hasura/guides/how-hasura-works',
+    },
+  ],
+}
