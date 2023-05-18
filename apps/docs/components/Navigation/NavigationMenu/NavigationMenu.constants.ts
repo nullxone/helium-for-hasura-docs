@@ -5,25 +5,25 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
     {
       label: 'Home',
       icon: 'home',
-      href: '/hasura',
+      href: '/',
       level: 'home',
     },
     {
       label: 'Getting Started',
       icon: 'getting-started',
-      href: '/hasura/guides/getting-started',
+      href: '/guides/getting-started',
       level: 'gettingstarted',
     },
     {
       label: 'Guides',
       icon: 'storage',
-      href: '/hasura/guides',
+      href: '/guides',
       level: 'storage',
     },
   ],
   [
     {
-      label: 'Application',
+      label: 'API',
     },
     {
       label: 'Queries',
@@ -32,11 +32,22 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
       href: '/hasura/guides/queries',
       level: 'integrations',
     },
+  ],
+  [
+    {
+      label: 'Application',
+    },
     {
       label: 'Modelling',
       icon: 'database',
       href: '/hasura/guides/modelling',
       level: 'database',
+    },
+    {
+      label: 'Permissions',
+      icon: 'self-hosting',
+      href: '/guides/self-hosting',
+      level: 'self_hosting',
     },
     {
       label: 'Data Mesh',
@@ -51,19 +62,19 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
     },
     {
       label: 'Configuration',
-      icon: 'self-hosting',
+      icon: 'platform',
       href: '/guides/self-hosting',
       level: 'self_hosting',
     },
     {
-      label: 'Auth',
+      label: 'Authentication',
       icon: 'auth',
       href: '/guides/auth',
       level: 'auth',
     },
     {
       label: 'Deployment',
-      icon: 'platform',
+      icon: 'status',
       href: '/guides/platform',
       level: 'platform',
     },
@@ -106,11 +117,6 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
       icon: 'realtime',
       href: '/guides/realtime',
       level: 'realtime',
-    },
-    {
-      label: 'Status',
-      icon: 'status',
-      href: 'https://status.supabase.com/',
     },
   ],
 ]
@@ -1384,15 +1390,15 @@ export const references = [
 export const guides = {
   icon: 'storage',
   title: 'Guides',
-  url: '/hasura/guides',
+  url: '/guides',
   items: [
     {
       name: 'Getting Started',
-      url: '/hasura/guides/getting-started',
+      url: '/guides/getting-started',
     },
     {
       name: 'How Hasura Works',
-      url: '/hasura/guides/how-hasura-works',
+      url: '/guides/how-hasura-works',
     },
   ],
 }

@@ -1,4 +1,6 @@
+import { useTheme } from 'common/Providers'
 import Link from 'next/link'
+import Image from 'next/image'
 import { IconBackground, IconPanel, IconPlay } from 'ui'
 import { useBreakpoint } from 'common'
 import DocsCoverLogo from './DocsCoverLogo'
@@ -6,6 +8,8 @@ import DocsCoverLogo from './DocsCoverLogo'
 const HomePageCover = (props) => {
   const isXs = useBreakpoint(639)
   const iconSize = isXs ? 'sm' : 'lg'
+
+  const { isDarkMode } = useTheme()
 
   const GettingStarted = () => (
     <div
@@ -109,7 +113,17 @@ const HomePageCover = (props) => {
     <div className="w-full bg-scale-100 border-b prose dark:prose-dar max-w-none mb-16 md:mb-12 xl:mb-0">
       <div className="max-w-7xl px-5 mx-auto py-8 sm:pb-16 sm:pt-12 xl:pt-16 flex flex-col xl:flex-row justify-between gap-12 xl:gap-12">
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 items-start sm:items-center w-full max-w-xl">
-          <DocsCoverLogo />
+          <Image
+            className="cursor-pointer"
+            src={
+              isDarkMode
+                ? '/docs/helium-for-hasura-simple-dark.svg'
+                : '/docs/helium-for-hasura-simple-light.svg'
+            }
+            width={250}
+            height={250}
+            alt="Helium for Hasura Logo"
+          />
           <div className="flex flex-col">
             <h1 className="m-0 mb-3 text-2xl sm:text-3xl">{props.meta?.title}</h1>
             <p className="m-0 text-scale-1100">

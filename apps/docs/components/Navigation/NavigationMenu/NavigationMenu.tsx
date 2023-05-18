@@ -34,18 +34,8 @@ const menus: Menu[] = [
     type: 'home',
   },
   {
-    id: 'home',
-    path: '/hasura',
-    type: 'home',
-  },
-  {
     id: 'guides',
-    path: '/hasura/guides',
-    type: 'guide',
-  },
-  {
-    id: 'gettingstarted',
-    path: '/guides/getting-started',
+    path: '/guides',
     type: 'guide',
   },
   {
