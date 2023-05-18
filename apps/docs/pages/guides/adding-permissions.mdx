@@ -5,62 +5,47 @@ import { GlassPanel, IconPanel, Button, IconChevronRight } from 'ui'
 import RefDetailCollapse from '~/components/reference/RefDetailCollapse'
 
 export const meta = {
-  id: 'getting-started',
-  title: 'Getting Started',
-  description: 'Build your first API with Helium for Hasura.',
-  subtitle: 'Build an API from scratch that supports relationships, filtering, pagination, aggregations, and more.',
+  id: 'adding-permissions',
+  title: 'Adding Permissions',
+  description: 'Add access permissions to your first API.',
+  subtitle: 'Add Authentication and Authorization for user specific permissions.',
   breadcrumb: 'Guides'
 }
 
 <StepHikeCompact>
 
   <StepHikeCompact.Step step={1}>
-    <StepHikeCompact.Details title="Clone the Starter Kit repository">
+    <StepHikeCompact.Details title="Enable authentication services">
 
-      Ensure that git, docker, and docker compose are installed.
-
-      Install [docker engine](https://docs.docker.com/engine/install/) or [docker desktop](https://docs.docker.com/get-docker/).
-
-      Install [docker compose](https://docs.docker.com/compose/install/).
+      Uncomment the following paths in the `docker-compose.yml` file.
+      - The auth/jwt relevant environment variables in the `app` and `hasura` services
+      - The entirety of the `auth` and `mailhog` services
+      - Volume for the `mailhog` service
 
     </StepHikeCompact.Details>
 
     <StepHikeCompact.Code>
       <div className="flex flex-col gap-3">
 
-        ```bash Terminal
-        # host>
-        git clone git@github.com:nullxone/helium-for-hasura-starter-kit.git MyApp
-        cd MyApp
+        ```yml docker-compose.yml
+        # docker-compose.yml
+
+        version: '3.8'
+        services:
+          app:
+            environment:
+              AUTH_SERVER_URL: http://localhost:4000
+          hasura:
+            environment:
+              HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key":"5152fa850c02dc222631cca898ed1485821a70912a6e3649c49076912daa3b62182ba013315915d64f40cddfbb8b58eb5bd11ba225336a6af45bbae07ca873f3","issuer":"hasura-auth"}'
+          auth:
+          # ...
+          mailhog:
+          # ...
+
+        volumes:
+          mailhog-data:
         ```
-
-        ```bash Terminal
-        # test docker engine
-        docker ps
-
-        # test docker compose
-        docker compose
-        ```
-
-        <RefDetailCollapse
-          label="Output"
-          defaultOpen={false}
-        >
-          
-          ```bash Terminal
-          TODO: Empty docker ps output
-
-          ---
-
-          Usage:  docker compose [OPTIONS] COMMAND
-
-          Docker Compose
-
-          Options:
-          ...
-          ```
-
-        </RefDetailCollapse>
 
       </div>
     </StepHikeCompact.Code>
@@ -68,55 +53,11 @@ export const meta = {
   </StepHikeCompact.Step>
 
   <StepHikeCompact.Step step={2}>
-    <StepHikeCompact.Details title="Build and start the services">
+    <StepHikeCompact.Details title="Enable the auth schema and metadata module">
 
-      This starts a postgres database, the Hasura engine, and an app container with the development environment. ☕
-
-    </StepHikeCompact.Details>
-
-    <StepHikeCompact.Code>
-
-      ```bash Terminal
-      docker compose up -d
-      ```
-
-    </StepHikeCompact.Code>
-
-  </StepHikeCompact.Step>
-
-  <StepHikeCompact.Step step={3}>
-    <StepHikeCompact.Details title="Configure the database">
-
-      As defined in `helium/Database.js`.
-
-      Note that the first group of commands is executed on the host machine, and the next group inside the app container.
-
-    </StepHikeCompact.Details>
-
-    <StepHikeCompact.Code>
-      <div className="flex flex-col gap-3">
-
-      ```bash Terminal
-      # host>
-      # opens a shell in the app container
-      bin/devcli.sh
-      ```
-
-      ```bash Terminal
-      # app>
-      yarn
-      source bin/commands.sh
-      he compile
-      he deploy
-      ```
-
-      </div>
-    </StepHikeCompact.Code>
-
-  </StepHikeCompact.Step>
-
-  <StepHikeCompact.Step step={4}>
-    <StepHikeCompact.Details title="Create the database schema">
+      The metadata module describes the `auth` service's modelling to the Hasura server.
+      
+      Bring up the `auth` service for it to initialize its schema.
 
       Hit enter to select the `default` database when prompted by the `hasura migrate` command.
 
@@ -127,7 +68,7 @@ export const meta = {
 
         ```bash Terminal
         # app>
-        hasura migrate create create_app_schema
+        hasura migrate create create_auth_schema
         ```
 
         ```bash Terminal
@@ -136,25 +77,143 @@ export const meta = {
         sudo chown -R $USER:$USER .
         ```
 
-        ```sql migrations/default/1624290000000_create_app_schema/up.sql
+        ```sql migrations/default/1684412516917_create_app_schema/up.sql
         -- migrations/default/XXXXXXXXXXXXX_create_app_schema/up.sql
 
-        create extension if not exists "uuid-ossp";
-
-        create table users (
-          id uuid primary key default uuid_generate_v4(),
-          name text not null,
-          created_at timestamp with time zone not null default now()
-        );
-
-        create table tasks (
-          id uuid primary key default uuid_generate_v4(),
-          title text not null,
-          body text not null,
-          user_id uuid not null,
-          created_at timestamp with time zone not null default now()
-        );
+        create schema if not exists auth;
         ```
+
+        ```bash Terminal
+        # app>
+        source bin/commands.sh
+        he module import hasura-auth
+        compiledeploy
+        ```
+
+        ```bash Terminal
+        # host>
+        docker compose up -d auth
+        ```
+
+      </div>
+    </StepHikeCompact.Code>
+
+  </StepHikeCompact.Step>
+
+  <StepHikeCompact.Step step={3}>
+    <StepHikeCompact.Details title="Declare model permissions">
+
+      Declaratively define authorization permissions based on the signed in user id using the `permissions` function.
+      
+      Then compile and deploy.
+
+    </StepHikeCompact.Details>
+
+    <StepHikeCompact.Code>
+      <div className="flex flex-col gap-3">
+
+      ```js models/Users.js
+      // models/Users.js
+
+      const { hasMany } = require("helium-for-hasura");
+
+      class Users {
+        static get relationships() {
+          return [hasMany("tasks", require("./Tasks"), "user_id")];
+        }
+
+        static get permissions() {
+          const pred = eq("id", "X-Hasura-User-Id");
+          return {
+            select: permission(pred, ["id", "name"]),
+            update: permission(pred, ["name"]),
+          };
+        }
+      }
+
+      module.exports = Users;
+      ```
+
+      ```js models/Tasks.js
+      // models/Tasks.js
+
+      const { belongsTo, permission } = require("helium-for-hasura");
+
+      class Tasks {
+        static get relationships() {
+          return [belongsTo("user", require("./Users"), "user_id")];
+        }
+
+        static get permissions() {
+          const pred = eq("user_id", "X-Hasura-User-Id"),
+            cols = ["id", "title", "body", "user_id"];
+          return {
+            select: permission(pred, cols),
+            insert: permission(pred, cols),
+            update: permission(pred, cols),
+            delete: permission(pred),
+          };
+        }
+      }
+
+      module.exports = Tasks;
+      ```
+
+      ```bash Terminal
+      # app>
+      source bin/commands.sh
+      compiledeploy
+      ```
+
+      </div>
+    </StepHikeCompact.Code>
+
+  </StepHikeCompact.Step>
+
+  <StepHikeCompact.Step step={4}>
+    <StepHikeCompact.Details title="Test the permission rules">
+
+      We now have a secured API that we can open up to the world.
+
+      Permission rules defined at the model level apply to:
+      - All queries, including access through relations and aggregations
+      - `select`, `insert`, `update`, `postUpdate`, and `delete` permissions can be defined
+
+    </StepHikeCompact.Details>
+
+    <StepHikeCompact.Code>
+      <div className="flex flex-col gap-3">
+
+      ```bash Terminal
+      # app>
+      hasura migrate create create_app_schema
+      ```
+
+      ```bash Terminal
+      # host>
+      # reset permissions for files generated inside the container
+      sudo chown -R $USER:$USER .
+      ```
+
+      ```sql migrations/1624290000000_create_app_schema/up.sql
+      -- migrations/XXXXXXXXXXXXX_create_app_schema/up.sql
+
+      create extension if not exists "uuid-ossp";
+
+      create table users (
+        id uuid primary key default uuid_generate_v4(),
+        name text not null,
+        created_at timestamp with time zone not null default now()
+      );
+
+      create table tasks (
+        id uuid primary key default uuid_generate_v4(),
+        title text not null,
+        body text not null,
+        user_id uuid not null,
+        created_at timestamp with time zone not null default now()
+      );
+      ```
 
       </div>
     </StepHikeCompact.Code>
@@ -390,12 +449,12 @@ export const meta = {
       Declaratively add authenication and authorization to the API.
 
         <Link
-          href="/guides/adding-permissions"
+          href="/docs/"
           passHref
         >
           <a className={'col-span-12 md:col-span-6'}>
             <IconPanel 
-              title="Adding permissions"
+              title="Add permissions"
               icon="/docs/img/icons/menu/storage"
               background={true}
               showLink={false}

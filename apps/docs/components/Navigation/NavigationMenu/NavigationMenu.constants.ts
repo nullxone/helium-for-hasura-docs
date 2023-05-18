@@ -1394,11 +1394,29 @@ export const guides = {
   items: [
     {
       name: 'Getting Started',
-      url: '/guides/getting-started',
+      items: [
+        {
+          name: 'Declaratively Modelled APIs',
+          url: '/guides/getting-started',
+        },
+        {
+          name: 'Adding Permissions',
+          url: '/guides/adding-permissions',
+        },
+      ],
     },
     {
-      name: 'How Hasura Works',
-      url: '/guides/how-hasura-works',
+      name: 'Under the Hood',
+      items: [
+        {
+          name: 'How Hasura Works',
+          url: '/guides/how-hasura-works',
+        },
+        {
+          name: 'How Helium Works',
+          url: '/guides/how-helium-works',
+        },
+      ],
     },
   ],
 }
