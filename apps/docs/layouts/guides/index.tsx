@@ -67,45 +67,13 @@ const Layout: FC<Props> = (props) => {
   const hasTableOfContents = tocList.length > 0
   const tocVideoPreview = `http://img.youtube.com/vi/${props.meta.tocVideo}/0.jpg`
 
-  // page type, ie, Auth, Database, Storage etc
-  const ogPageType = asPath.split('/')[2]
-  // open graph image url constructor
-  const ogImageUrl = encodeURI(
-    `https://obuldanrptloktxcffvn.functions.supabase.co/og-images?site=docs${
-      ogPageType ? `&type=${ogPageType}` : ''
-    }&title=${props.meta?.title}&description=${props.meta?.description}`
-  )
-
   return (
     <>
       <Head>
-        <title>{props.meta?.title} | Supabase Docs</title>
+        <title>{props.meta?.title} | Helium for Hasura Docs</title>
         <meta name="description" content={props.meta?.description} />
-        <meta property="og:image" content={ogImageUrl} />
-        <meta name="twitter:image" content={ogImageUrl} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <NextSeo
-        canonical={props.meta?.canonical ?? `https://supabase.com/docs${asPath}`}
-        openGraph={{
-          url: `https://supabase.com/docs${asPath}`,
-          type: 'article',
-          videos: props.meta?.video && [
-            {
-              // youtube based video meta
-              url: props.meta?.video,
-              width: 640,
-              height: 385,
-              type: 'application/x-shockwave-flash',
-            },
-          ],
-          article: {
-            publishedTime: new Date().toISOString(),
-            modifiedTime: new Date().toISOString(),
-            authors: ['Supabase'],
-          },
-        }}
-      />
       <LayoutMainContent className="pb-0">
         <div className={['grid grid-cols-12 relative gap-4'].join(' ')}>
           <div
@@ -138,7 +106,7 @@ const Layout: FC<Props> = (props) => {
                 <div className="mt-16 not-prose">
                   <div>
                     <Link
-                      href={`https://github.com/supabase/supabase/edit/master/apps/docs/pages${router.asPath}.mdx`}
+                      href={`https://github.com/nullxone/helium-for-hasura-docs/edit/master/apps/docs/pages${router.asPath}.mdx`}
                       passHref
                     >
                       <a className="text-sm transition flex items-center gap-1 text-scale-1000 hover:text-scale-1200">

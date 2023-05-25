@@ -30,36 +30,14 @@ const Layout: FC<Props> = (props: Props) => {
   return (
     <>
       <Head>
-        <title>{asPath === '/' ? 'Supabase Docs' : `${props.meta?.title} | Supabase Docs`}</title>
+        <title>
+          {asPath === '/'
+            ? 'Helium for Hasura Docs'
+            : `${props.meta?.title} | Helium for Hasura Docs`}
+        </title>
         <meta name="description" content={props.meta?.description} />
-        <meta property="og:image" content={`https://supabase.com/docs/img/supabase-og-image.png`} />
-        <meta
-          name="twitter:image"
-          content={`https://supabase.com/docs/img/supabase-og-image.png`}
-        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <NextSeo
-        canonical={props.meta?.canonical ?? `https://supabase.com/docs${asPath}`}
-        openGraph={{
-          url: `https://supabase.com/docs${asPath}`,
-          type: 'article',
-          videos: props.meta?.video && [
-            {
-              // youtube based video meta
-              url: props.meta?.video,
-              width: 640,
-              height: 385,
-              type: 'application/x-shockwave-flash',
-            },
-          ],
-          article: {
-            publishedTime: new Date().toISOString(),
-            modifiedTime: new Date().toISOString(),
-            authors: ['Supabase'],
-          },
-        }}
-      />
       <LayoutMainContent>
         <div className={['relative transition-all ease-out', 'duration-150 '].join(' ')}>
           <article className="prose dark:prose-dar max-w-none">

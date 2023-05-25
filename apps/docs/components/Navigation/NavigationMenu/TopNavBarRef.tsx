@@ -77,60 +77,10 @@ const TopNavBarRef: FC = () => {
           {/* {router.asPath.includes('/reference/') && <RefSwitcher />} */}
         </div>
 
-        <div className="flex items-center gap-6">
-          <SearchButton className="md:w-full lg:w-96 order-2 lg:order-1">
-            <div
-              className="
-              flex
-              group
-              items-center
-              justify-between
-              bg-scaleA-200
-              border
-              transition
-              hover:border-scale-600
-              hover:bg-scaleA-300
-              border-scale-500 pl-1.5 md:pl-3 pr-1.5 w-full h-[32px] rounded"
-            >
-              <div className="flex items-center space-x-2">
-                <IconSearch className="text-scale-1100" size={18} strokeWidth={2} />
-                <p className="hidden md:flex text-scale-1100 text-sm group-hover:text-scale-1200 transition">
-                  Search docs...
-                </p>
-              </div>
-              <div className="hidden md:flex items-center space-x-1">
-                <div className="text-scale-1200 md:flex items-center justify-center h-5 w-10 border rounded bg-scale-500 border-scale-700 gap-1">
-                  <IconCommand size={12} strokeWidth={1.5} />
-                  <span className="text-[12px]">K</span>
-                </div>
-              </div>
-            </div>
-          </SearchButton>
-        </div>
         <div className="hidden lg:flex grow items-center justify-end gap-3">
-          <Button
-            type="text"
-            as="a"
-            // @ts-ignore
-            href="https://supabase.com"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Supabase.com
-          </Button>
-          <Button
-            type="text"
-            as="a"
-            // @ts-ignore
-            href="https://app.supabase.com"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Dashboard
-          </Button>
           <ul className="flex items-center">
             <Link
-              href="https://github.com/supabase/supabase"
+              href="https://github.com/nullxone/helium-for-hasura-starter-kit"
               target="_blank"
               rel="noreferrer noopener"
             >

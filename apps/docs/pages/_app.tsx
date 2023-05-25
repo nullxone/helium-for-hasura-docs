@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     IS_PLATFORM || LOCAL_SUPABASE ? createBrowserSupabaseClient() : undefined
   )
 
+  // TODOHE
   const handlePageTelemetry = useCallback(
     (route: string) => {
       return post(`${API_URL}/telemetry/page`, {

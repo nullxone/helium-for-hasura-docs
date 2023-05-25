@@ -12,6 +12,22 @@ export const meta = {
   breadcrumb: 'Guides'
 }
 
+This guide continues from the previous guide:
+<Link
+  href="/guides/getting-started"
+  passHref
+>
+  <a className={'col-span-12 md:col-span-6'}>
+    <IconPanel 
+      title="Declaratively Modelled APIs"
+      icon="/docs/img/icons/menu/storage"
+      background={true}
+      showLink={false}
+    />
+  </a>
+</Link>
+<hr/>
+
 <StepHikeCompact>
 
   <StepHikeCompact.Step step={1}>
@@ -126,6 +142,7 @@ export const meta = {
           const pred = eq("id", "X-Hasura-User-Id");
           return {
             select: permission(pred, ["id", "name"]),
+            insert: permission(pred, ["id", "name"]),
             update: permission(pred, ["name"]),
           };
         }
@@ -179,41 +196,75 @@ export const meta = {
       - All queries, including access through relations and aggregations
       - `select`, `insert`, `update`, `postUpdate`, and `delete` permissions can be defined
 
+      There is a positive and negative test case.
+
     </StepHikeCompact.Details>
 
     <StepHikeCompact.Code>
       <div className="flex flex-col gap-3">
 
-      ```bash Terminal
-      # app>
-      hasura migrate create create_app_schema
-      ```
+        ```js helium/test/permissions.test.js
+        // helium/test/permissions.test.js   
 
-      ```bash Terminal
-      # host>
-      # reset permissions for files generated inside the container
-      sudo chown -R $USER:$USER .
-      ```
+        const { gql } = require("graphql-request");
+        const { makeQuery, signup, deleteAllAuthUsers, jsonLog } = require("../utils");
 
-      ```sql migrations/1624290000000_create_app_schema/up.sql
-      -- migrations/XXXXXXXXXXXXX_create_app_schema/up.sql
+        beforeEach(async () => {
+          await deleteAllAuthUsers();
+        });
 
-      create extension if not exists "uuid-ossp";
+        test("user can create own profile", async () => {
+          const user = {
+            name: "TEST1",
+            email: "test1@email.com",
+            password: "1234",
+          };
+          const session = await signup(user);
 
-      create table users (
-        id uuid primary key default uuid_generate_v4(),
-        name text not null,
-        created_at timestamp with time zone not null default now()
-      );
+          const res = await makeQuery(
+            gql`
+              mutation create_user {
+                insert_users_one(object: {id: "${session.user.id}", name: "${user.name}"}) {
+                  id, name
+                }
+              }
+            `,
+            undefined,
+            { Authorization: `Bearer ${session.accessToken}` }
+          );
 
-      create table tasks (
-        id uuid primary key default uuid_generate_v4(),
-        title text not null,
-        body text not null,
-        user_id uuid not null,
-        created_at timestamp with time zone not null default now()
-      );
-      ```
+          expect(res.data.data.insert_users_one.name).toBe("TEST1");
+        });
+
+        test("user cannot create another users profile", async () => {
+          const user = {
+            name: "TEST1",
+            email: "test1@email.com",
+            password: "1234",
+          };
+          const session = await signup(user);
+          const differentUserId = "2b8e4d4e-bce1-4f55-8ac0-32ec2b1b27bb";
+
+          const res = await makeQuery(
+            gql`
+              mutation create_user {
+                insert_users_one(object: {id: "${differentUserId}", name: "${user.name}"}) {
+                  id, name
+                }
+              }
+            `,
+            undefined,
+            { Authorization: `Bearer ${session.accessToken}` }
+          );
+
+          expect(res.data.errors[0].extensions.code).toBe("permission-error");
+        });
+        ```
+
+        ```bash Terminal
+        # app>
+        yarn test
+        ```
 
       </div>
     </StepHikeCompact.Code>
@@ -439,33 +490,6 @@ export const meta = {
         </RefDetailCollapse>
 
       </div>
-    </StepHikeCompact.Code>
-
-  </StepHikeCompact.Step>
-
-  <StepHikeCompact.Step step={7}>
-    <StepHikeCompact.Details title="Next: Add permissions">
-
-      Declaratively add authenication and authorization to the API.
-
-        <Link
-          href="/docs/"
-          passHref
-        >
-          <a className={'col-span-12 md:col-span-6'}>
-            <IconPanel 
-              title="Add permissions"
-              icon="/docs/img/icons/menu/storage"
-              background={true}
-              showLink={false}
-            />
-          </a>
-        </Link>
-
-    </StepHikeCompact.Details>
-
-    <StepHikeCompact.Code>
-
     </StepHikeCompact.Code>
 
   </StepHikeCompact.Step>
