@@ -22,21 +22,22 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     IS_PLATFORM || LOCAL_SUPABASE ? createBrowserSupabaseClient() : undefined
   )
 
-  // TODOHE
-  const handlePageTelemetry = useCallback(
-    (route: string) => {
-      return post(`${API_URL}/telemetry/page`, {
-        referrer: document.referrer,
-        title: document.title,
-        route,
-        ga: {
-          screen_resolution: telemetryProps?.screenResolution,
-          language: telemetryProps?.language,
-        },
-      })
-    },
-    [telemetryProps]
-  )
+  const handlePageTelemetry = function (url) {}
+
+  // const handlePageTelemetry = useCallback(
+  //   (route: string) => {
+  //     return post(`${API_URL}/telemetry/page`, {
+  //       referrer: document.referrer,
+  //       title: document.title,
+  //       route,
+  //       ga: {
+  //         screen_resolution: telemetryProps?.screenResolution,
+  //         language: telemetryProps?.language,
+  //       },
+  //     })
+  //   },
+  //   [telemetryProps]
+  // )
 
   useEffect(() => {
     function handleRouteChange(url: string) {
