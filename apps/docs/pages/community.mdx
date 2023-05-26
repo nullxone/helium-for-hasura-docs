@@ -1,0 +1,56 @@
+import Layout from '~/layouts/DefaultGuideLayout'
+import Link from 'next/link'
+import Image from 'next/image'
+
+import {
+  Button,
+  GlassPanel,
+  IconBackground,
+  IconChevronRight,
+  IconPanel,
+  IconPlay,
+  TextLink,
+} from 'ui'
+
+export const meta = {
+  title: 'Community',
+  description:
+    'Links to open source repositories, and credits for packages used by the Hasura Starter Kit',
+}
+
+## Feedback
+
+Please share feedback, issues, suggestions for next directions or dsl design at Github Issues.
+
+<TextLink
+  label="Raise a Github Issue"
+  url="https://github.com/nullxone/helium-for-hasura-starter-kit/issues?q="
+  className="no-underline text-brand-900 text-sm"
+/>
+
+## Hasura
+
+The workhorse that powers the Starter Kit. The DSL really compiles down to Hasura metadata.
+
+<Link href="https://hasura.io/">
+  <a>
+    <Image
+      className="cursor-pointer"
+      src="/docs/powered-by-hasura-primary-light.svg"
+      width={246}
+      height={84}
+      alt="Powered by Hasura"
+    />
+  </a>
+</Link>
+
+## Thanks
+
+The Starter Kit uses several packages. Thanks!
+- The [hasura-auth authentication package](https://github.com/nullxone/hasura-auth) is based on the [hasura-auth package by nhost](https://github.com/nhost/hasura-auth)
+- These docs are modified from [supabase docs](https://github.com/supabase/supabase/tree/master/apps/docs)
+
+
+export const Page = ({ children }) => <Layout meta={meta} children={children} hideToc={true} />
+
+export default Page

@@ -21,6 +21,7 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
       level: 'storage',
     },
   ],
+  /*
   [
     {
       label: 'API',
@@ -102,6 +103,7 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
       level: 'resources',
     },
   ],
+  */
   [
     {
       label: 'Links',
@@ -109,13 +111,13 @@ export const HOMEPAGE_MENU_ITEMS: HomepageMenuItems = [
     {
       label: 'Community',
       icon: 'edge-functions',
-      href: '/guides/functions',
+      href: '/community',
       level: 'functions',
     },
     {
       label: 'Hasura Docs',
       icon: 'realtime',
-      href: '/guides/realtime',
+      href: 'https://hasura.io/docs/latest/index',
       level: 'realtime',
     },
   ],
@@ -1405,6 +1407,7 @@ export const guides = {
         },
       ],
     },
+    /*
     {
       name: 'Under the Hood',
       items: [
@@ -1418,5 +1421,6 @@ export const guides = {
         },
       ],
     },
+    */
   ],
 }

@@ -3,6 +3,7 @@ services:
   docs:
     build: .
     command: npm run dev:docs
+    # command: sleep infinity
     volumes:
       - .:/docs
     ports:

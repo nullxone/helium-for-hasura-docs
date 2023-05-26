@@ -1,0 +1,17 @@
+FROM node:20.1
+
+WORKDIR /docs
+COPY package.json package-lock.json apps/www apps/docs/package.json packages studio .
+RUN npm install
+
+WORKDIR /docs
+COPY . .
+RUN npm install
+
+WORKDIR /docs/apps/docs
+
+RUN npm install &&\
+    npm run build &&\
+    rm public/sitemap.xml
+
+ENTRYPOINT ["npm", "run", "start"]

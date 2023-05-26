@@ -3,12 +3,12 @@
 .git
 .github
 about
-apps
+# apps
 docker
 examples
 i18n
 **/node_modules
-spec
+# spec
 supabase
 tests
 
