@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: helium-starter-docs
+  name: helium-starter-docs
+  namespace: hasura
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: helium-starter-docs
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: helium-starter-docs
+    spec:
+      containers:
+      - name: helium-starter-docs
+        image: us-west1-docker.pkg.dev/websitecloud-352908/helium-starter-docs/helium-starter-docs:latest 
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: PORT
+          value: "8080"
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "3m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
