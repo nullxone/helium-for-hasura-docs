@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: helium-starter-docs
+  name: helium-starter-docs
+  namespace: hasura
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: https  
+    port: 443
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: helium-starter-docs
+  type: LoadBalancer
+  loadBalancerIP: 34.94.182.229
