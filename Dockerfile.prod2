@@ -14,4 +14,7 @@ RUN npm install &&\
     npm run build &&\
     rm public/sitemap.xml
 
+EXPOSE 3000
+
 ENTRYPOINT ["npm", "run", "start"]
+
