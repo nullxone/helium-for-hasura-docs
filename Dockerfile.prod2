@@ -14,6 +14,7 @@ RUN npm install &&\
     npm run build &&\
     rm public/sitemap.xml
 
+
 #Date modified: 29th May
 
 EXPOSE 3000
