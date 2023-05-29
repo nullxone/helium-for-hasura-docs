@@ -14,7 +14,8 @@ RUN npm install &&\
     npm run build &&\
     rm public/sitemap.xml
 
-#code changes triggers build
+
+#Date modified: 29th May
 
 EXPOSE 3000
 
