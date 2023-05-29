@@ -2,7 +2,7 @@ version: '3.8'
 services:
   docs:
     # image: docsprod
-    image: akshaya01/helium-for-hasura-docs:202305261530
+    image: akshaya01/helium-for-hasura-docs:202305261745
     ports:
     - "3000:3000"
     network_mode: host
